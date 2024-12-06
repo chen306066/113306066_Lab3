@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>113306066_Lab3_Number Guessing Game</title>
+</head>
+<body>
+    <h1>113306066_Lab3_Number Guessing Game</h1>
+    <div id="result"></div>
+
+    <script>
+        // 產生 1~100 的隨機整數
+        const targetNumber = Math.floor(Math.random() * 100) + 1;
+        let lowerBound = 0;
+        let upperBound = 100;
+        let attemptsLeft = 7;
+
+        while (attemptsLeft > 0) {
+            const userInput = window.prompt(`請猜一個 ${lowerBound} ~ ${upperBound} 之間的整數。\n剩餘嘗試次數：${attemptsLeft}`);
+            
+            // 檢查是否有輸入值，並檢查是否在範圍內
+            if (!userInput || isNaN(userInput) || userInput <= lowerBound || userInput >= upperBound) {
+                alert(`請輸入有效的數字，範圍是 ${lowerBound} ~ ${upperBound}！`);
+                continue;
+            }
+
+            const guess = Number(userInput);
+
+            if (guess === targetNumber) {
+                alert("恭喜你！猜對了！");
+                document.getElementById("result").innerHTML = `<img src="correct.jpg" width="80%" height="80%" alt="Correct">`;
+                break;
+            } else if (guess > targetNumber) {
+                alert("太高了！");
+                upperBound = guess; // 更新上界
+            } else {
+                alert("太低了！");
+                lowerBound = guess; // 更新下界
+            }
+
+            attemptsLeft--;
+
+            if (attemptsLeft === 0) {
+                alert(`遊戲結束！正確答案是：${targetNumber}`);
+                document.getElementById("result").innerHTML = `<img src="wrong.jpg" width="80%" height="80%" alt="Wrong">`;
+            }
+        }
+    </script>
+</body>
+</html>
